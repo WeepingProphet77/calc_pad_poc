@@ -1,0 +1,146 @@
+@import 'katex/dist/katex.min.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  background: #f3f4f6;
+  color: #111827;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+/* Calc sheet looks like printed paper */
+.calc-sheet {
+  background: #ffffff;
+  color: #111827;
+  font-family: 'STIX Two Text', Georgia, serif;
+}
+
+.calc-sheet .katex {
+  font-size: 1.02em;
+}
+
+.section-heading {
+  border-bottom: 1px solid #1f2937;
+  padding-bottom: 0.25rem;
+  margin-bottom: 0.75rem;
+  font-weight: 600;
+  color: #003C71;
+}
+
+.subsection-heading {
+  font-weight: 600;
+  color: #1f2937;
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  text-decoration: underline;
+}
+
+.calc-line {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 280px) minmax(0, 180px);
+  gap: 1.25rem;
+  align-items: baseline;
+  padding: 0.2rem 0;
+}
+
+.calc-line .desc {
+  font-family: 'STIX Two Text', Georgia, serif;
+  font-style: italic;
+  color: #374151;
+  font-size: 0.95rem;
+}
+
+.calc-line .ref {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  color: #6b7280;
+  text-align: right;
+}
+
+.calc-note {
+  font-family: 'STIX Two Text', Georgia, serif;
+  color: #1f2937;
+  background: #f9fafb;
+  border-left: 3px solid #003C71;
+  padding: 0.5rem 0.75rem;
+  margin: 0.5rem 0;
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+.title-block {
+  border: 1px solid #1f2937;
+}
+
+.title-block .brand {
+  background: #003C71;
+  color: white;
+}
+
+.summary-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'STIX Two Text', Georgia, serif;
+}
+.summary-table th,
+.summary-table td {
+  border: 1px solid #1f2937;
+  padding: 0.45rem 0.6rem;
+  text-align: left;
+}
+.summary-table th {
+  background: #e5e7eb;
+  font-weight: 600;
+}
+
+/* Print */
+@media print {
+  @page {
+    size: letter;
+    margin: 0.75in;
+  }
+  html,
+  body,
+  #root {
+    background: white !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-root {
+    display: block !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+  }
+  .calc-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  .calc-section,
+  .calc-line,
+  .summary-table tr {
+    page-break-inside: avoid;
+  }
+  .section-heading,
+  .subsection-heading {
+    page-break-after: avoid;
+  }
+}
