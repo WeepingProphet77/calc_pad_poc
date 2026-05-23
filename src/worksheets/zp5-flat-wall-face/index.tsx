@@ -11,6 +11,7 @@ export default function ZP5Worksheet() {
   const [inputs, setInputs] = useState<ZP5Inputs>(defaultInputs);
   const [project, setProject] = useState<ProjectInfo>({
     projectName: '',
+    jobNumber: '',
     engineer: '',
     date: new Date().toISOString().slice(0, 10),
     checkedBy: '',
@@ -29,6 +30,11 @@ export default function ZP5Worksheet() {
               label="Project Name"
               value={project.projectName}
               onChange={(v) => setProject({ ...project, projectName: v })}
+            />
+            <TextField
+              label="Job Number"
+              value={project.jobNumber}
+              onChange={(v) => setProject({ ...project, jobNumber: v })}
             />
             <TextField
               label="Engineer"
