@@ -168,7 +168,7 @@ body,
 @media print {
   @page {
     size: letter;
-    margin: 0;
+    margin: 0.5in;
   }
   html,
   body,
@@ -189,16 +189,24 @@ body,
     padding: 0 !important;
   }
   .paged-page {
+    display: block !important;
+    width: auto !important;
+    min-height: 0 !important;
+    padding: 0 !important;
     margin: 0 !important;
     box-shadow: none !important;
-    width: 8.5in !important;
-    min-height: 11in !important;
     page-break-after: always;
     break-after: page;
   }
   .paged-page:last-child {
     page-break-after: auto;
     break-after: auto;
+  }
+  .paged-body {
+    flex: none !important;
+  }
+  .paged-measure {
+    display: none !important;
   }
   .calc-grid-body,
   .paged-page,
