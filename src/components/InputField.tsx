@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { Katex } from './Katex';
 
 type Props = {
@@ -21,6 +22,17 @@ export function InputField({
   max,
   step,
 }: Props) {
+  const [draft, setDraft] = useState<string>(() => formatForInput(value));
+  const [focused, setFocused] = useState(false);
+
+  useEffect(() => {
+    if (focused) return;
+    const parsed = parseFloat(draft);
+    if (Number.isNaN(parsed) || parsed !== value) {
+      setDraft(formatForInput(value));
+    }
+  }, [value, focused, draft]);
+
   return (
     <label className="block mb-3">
       <div className="flex items-baseline justify-between gap-2">
@@ -33,10 +45,25 @@ export function InputField({
         <input
           type="number"
           className="w-full rounded border border-gray-300 px-2 py-1 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-wells-light"
-          value={Number.isFinite(value) ? value : ''}
+          value={draft}
+          onFocus={(e) => {
+            setFocused(true);
+            e.currentTarget.select();
+          }}
+          onBlur={() => {
+            setFocused(false);
+            const parsed = parseFloat(draft);
+            if (Number.isNaN(parsed)) {
+              setDraft(formatForInput(value));
+            }
+          }}
           onChange={(e) => {
-            const n = parseFloat(e.target.value);
-            if (!Number.isNaN(n)) onChange(n);
+            const next = e.target.value;
+            setDraft(next);
+            const parsed = parseFloat(next);
+            if (!Number.isNaN(parsed) && parsed !== value) {
+              onChange(parsed);
+            }
           }}
           min={min}
           max={max}
@@ -46,6 +73,10 @@ export function InputField({
       </div>
     </label>
   );
+}
+
+function formatForInput(v: number): string {
+  return Number.isFinite(v) ? String(v) : '';
 }
 
 type TextProps = {
