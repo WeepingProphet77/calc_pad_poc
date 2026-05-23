@@ -17,7 +17,7 @@ export function TitleBlock({ title, reference, project }: Props) {
     <div className="title-block mb-4">
       <div className="flex items-start justify-between gap-6 px-1 pb-3">
         <img
-          src="/Wells_logos/Blue/Wells_Logo_Horizontal_Blue_Web.png"
+          src={`${import.meta.env.BASE_URL}Wells_logos/Blue/Wells_Logo_Horizontal_Blue_Web.png`}
           alt="Wells"
           className="h-14 w-auto select-none"
         />
