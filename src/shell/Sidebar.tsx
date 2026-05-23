@@ -26,9 +26,11 @@ export function Sidebar({ activeId, onSelect }: Props) {
     <aside className="no-print w-[260px] shrink-0 bg-wells-dark text-white flex flex-col">
       <div className="px-4 py-4 border-b border-white/10">
         <div className="flex items-center gap-2">
-          <div className="bg-white text-wells font-bold text-lg px-2 py-0.5 tracking-widest">
-            WELLS
-          </div>
+          <img
+            src={`${import.meta.env.BASE_URL}Wells_logos/White/Wells_Logo_Horizontal_White_Web.png`}
+            alt="Wells"
+            className="h-7 w-auto select-none"
+          />
           <div className="text-xs uppercase tracking-wider opacity-80">Connection Calc</div>
         </div>
       </div>
