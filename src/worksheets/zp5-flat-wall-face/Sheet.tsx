@@ -22,6 +22,7 @@ export function ZP5Sheet({ inputs: I, results: R, project }: Props) {
         project={project}
       />
 
+      <div className="calc-grid-body">
       <CalcSection title="1. Design Assumptions">
         <CalcLine expr={defLine('F_{exx}', I.F_exx, 'ksi')} description="weld electrode strength" />
         <CalcLine expr={defLine('f_y', I.f_y, 'ksi')} description="rebar yield strength" />
@@ -464,6 +465,8 @@ export function ZP5Sheet({ inputs: I, results: R, project }: Props) {
           ]}
         />
       </CalcSection>
+      </div>
+      <div className="calc-footer">www.wells.build</div>
     </div>
   );
 }

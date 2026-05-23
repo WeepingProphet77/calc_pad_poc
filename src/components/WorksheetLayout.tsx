@@ -1,4 +1,4 @@
-import { Children, isValidElement, type ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import { PrintButton } from './PrintButton';
 
 type Props = {
@@ -7,14 +7,6 @@ type Props = {
 };
 
 export function WorksheetLayout({ inputs, sheet }: Props) {
-  // Split TitleBlock (first child) from the calc body so we can wrap only the
-  // body in the bordered light-blue grid area, matching the Wells calc sheet.
-  const sheetChildren = isValidElement(sheet)
-    ? Children.toArray((sheet.props as { children?: ReactNode }).children)
-    : [sheet];
-  const titleNode = sheetChildren[0];
-  const bodyNodes = sheetChildren.slice(1);
-
   return (
     <div className="flex-1 flex min-w-0 min-h-0">
       <aside className="no-print w-[320px] shrink-0 border-r border-gray-200 bg-white overflow-y-auto">
@@ -26,9 +18,7 @@ export function WorksheetLayout({ inputs, sheet }: Props) {
       </aside>
       <main className="flex-1 min-w-0 overflow-y-auto bg-gray-100 print-root">
         <div className="mx-auto my-6 max-w-[8.5in] calc-sheet shadow-md border border-gray-200 px-12 py-10">
-          {titleNode}
-          <div className="calc-grid-body">{bodyNodes}</div>
-          <div className="calc-footer">www.wells.build</div>
+          {sheet}
         </div>
       </main>
     </div>
