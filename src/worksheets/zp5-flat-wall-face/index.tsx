@@ -115,7 +115,7 @@ export default function ZP5Worksheet() {
           </Group>
         </div>
       }
-      sheet={<ZP5Sheet inputs={inputs} results={results} project={project} />}
+      sheet={ZP5Sheet({ inputs, results, project })}
     />
   );
 }
