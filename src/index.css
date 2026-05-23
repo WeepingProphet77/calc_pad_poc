@@ -21,17 +21,6 @@ body,
   font-family: 'Inter', system-ui, sans-serif;
 }
 
-/* Calc sheet looks like printed paper */
-.calc-sheet {
-  background: #ffffff;
-  color: #111827;
-  font-family: 'STIX Two Text', Georgia, serif;
-}
-
-.calc-sheet .katex {
-  font-size: 1.02em;
-}
-
 .section-heading {
   border-bottom: 1px solid #1f2937;
   padding-bottom: 0.25rem;
@@ -54,6 +43,8 @@ body,
   gap: 0.75rem;
   align-items: baseline;
   padding: 0.2rem 0;
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .calc-line .desc {
@@ -79,10 +70,8 @@ body,
   margin: 0.5rem 0;
   font-size: 0.95rem;
   line-height: 1.45;
-}
-
-.title-block {
-  /* header sits above the grid body — no outer box needed */
+  break-inside: avoid;
+  page-break-inside: avoid;
 }
 
 .calc-grid-body {
@@ -123,12 +112,63 @@ body,
   background: #e5e7eb;
   font-weight: 600;
 }
+.summary-table tr {
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+/* Paged layout — discrete 8.5x11 pages on screen and in print */
+.paged-stack {
+  padding: 1.5rem 0;
+}
+.paged-page {
+  width: 8.5in;
+  min-height: 11in;
+  margin: 0 auto 1.25rem;
+  padding: 0.5in;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #111827;
+  font-family: 'STIX Two Text', Georgia, serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  break-after: page;
+  page-break-after: always;
+}
+.paged-page:last-child {
+  break-after: auto;
+  page-break-after: auto;
+}
+.paged-page .katex {
+  font-size: 1.02em;
+}
+.paged-body {
+  flex: 1;
+}
+.paged-block {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+.calc-section {
+  break-inside: avoid-page;
+  page-break-inside: avoid;
+}
+
+/* Hidden measurement layer used by the paginator */
+.paged-measure {
+  position: absolute !important;
+  left: -99999px !important;
+  top: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
 
 /* Print */
 @media print {
   @page {
     size: letter;
-    margin: 0.75in;
+    margin: 0;
   }
   html,
   body,
@@ -143,30 +183,32 @@ body,
     padding: 0 !important;
     margin: 0 !important;
     overflow: visible !important;
+    background: white !important;
   }
-  .calc-sheet {
-    box-shadow: none !important;
-    border: none !important;
-    margin: 0 !important;
+  .paged-stack {
     padding: 0 !important;
-    width: 100% !important;
-    max-width: 100% !important;
   }
-  .calc-grid-body {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+  .paged-page {
+    margin: 0 !important;
+    box-shadow: none !important;
+    width: 8.5in !important;
+    min-height: 11in !important;
+    page-break-after: always;
+    break-after: page;
   }
+  .paged-page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+  .calc-grid-body,
+  .paged-page,
   .title-block img {
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .calc-section,
-  .calc-line,
-  .summary-table tr {
-    page-break-inside: avoid;
-  }
   .section-heading,
   .subsection-heading {
+    break-after: avoid;
     page-break-after: avoid;
   }
 }
