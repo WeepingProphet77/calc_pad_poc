@@ -82,12 +82,30 @@ body,
 }
 
 .title-block {
-  border: 1px solid #1f2937;
+  /* header sits above the grid body — no outer box needed */
 }
 
-.title-block .brand {
-  background: #003C71;
-  color: white;
+.calc-grid-body {
+  position: relative;
+  border: 2px solid #2b5a9c;
+  padding: 14px 16px;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(to right, #a8cee9 0, #a8cee9 1px, transparent 1px),
+    linear-gradient(to bottom, #a8cee9 0, #a8cee9 1px, transparent 1px),
+    linear-gradient(to right, #dceaf6 0, #dceaf6 1px, transparent 1px),
+    linear-gradient(to bottom, #dceaf6 0, #dceaf6 1px, transparent 1px);
+  background-size: 0.2in 0.2in, 0.2in 0.2in, 0.04in 0.04in, 0.04in 0.04in;
+  background-position: 0 0, 0 0, 0 0, 0 0;
+}
+
+.calc-footer {
+  text-align: center;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.75rem;
+  color: #003C71;
+  margin-top: 0.5rem;
+  padding-top: 0.25rem;
 }
 
 .summary-table {
@@ -133,6 +151,14 @@ body,
     padding: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+  }
+  .calc-grid-body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .title-block img {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
   .calc-section,
   .calc-line,
