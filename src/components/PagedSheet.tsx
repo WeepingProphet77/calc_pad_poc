@@ -3,12 +3,18 @@ import { Children, useEffect, useRef, useState, type ReactNode } from 'react';
 const DPI = 96;
 const PAGE_W_IN = 8.5;
 const PAGE_H_IN = 11;
-const PAGE_PAD_IN = 0.5;
-const FOOTER_RESERVE_IN = 0.4;
+const PAGE_PAD_IN = 0.6;
+const FOOTER_RESERVE_IN = 0.55;
 // Subtract a small safety buffer so content reliably fits inside the
 // printable area even when print rendering shifts line heights slightly
 // vs. screen rendering.
-const PRINT_SAFETY_IN = 0.4;
+const PRINT_SAFETY_IN = 0.3;
+// Vertical chrome from the calc-grid-body wrapper (2px border top/bottom
+// + 10px padding top/bottom).
+const BODY_CHROME_PX = 24;
+// Horizontal chrome from the same wrapper, used so the hidden measurement
+// layer matches the actual rendered width and reflows identically.
+const BODY_CHROME_X_PX = 28;
 
 type Props = {
   header: ReactNode;
@@ -28,7 +34,9 @@ export function PagedSheet({ header, children }: Props) {
       if (!bodyEl || !headerEl) return;
       const headerH = headerEl.offsetHeight;
       const usablePerPage =
-        (PAGE_H_IN - PAGE_PAD_IN * 2 - FOOTER_RESERVE_IN - PRINT_SAFETY_IN) * DPI - headerH;
+        (PAGE_H_IN - PAGE_PAD_IN * 2 - FOOTER_RESERVE_IN - PRINT_SAFETY_IN) * DPI -
+        headerH -
+        BODY_CHROME_PX;
       const items = Array.from(bodyEl.children) as HTMLElement[];
       const heights = items.map((el) => el.offsetHeight);
       const next: number[][] = [[]];
@@ -52,6 +60,7 @@ export function PagedSheet({ header, children }: Props) {
   }, []);
 
   const contentWidth = `${PAGE_W_IN - PAGE_PAD_IN * 2}in`;
+  const bodyMeasureWidth = `calc(${contentWidth} - ${BODY_CHROME_X_PX}px)`;
 
   return (
     <>
@@ -67,7 +76,7 @@ export function PagedSheet({ header, children }: Props) {
         ref={bodyMeasureRef}
         aria-hidden
         className="paged-measure"
-        style={{ width: contentWidth }}
+        style={{ width: bodyMeasureWidth }}
       >
         {blocks.map((b, i) => (
           <div key={i}>{b}</div>

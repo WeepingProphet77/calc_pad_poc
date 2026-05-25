@@ -94,7 +94,8 @@ body,
   font-size: 0.75rem;
   color: #003C71;
   margin-top: 0.5rem;
-  padding-top: 0.25rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid #003C71;
 }
 
 .summary-table {
@@ -125,7 +126,7 @@ body,
   width: 8.5in;
   min-height: 11in;
   margin: 0 auto 1.25rem;
-  padding: 0.5in;
+  padding: 0.6in;
   box-sizing: border-box;
   background: #ffffff;
   color: #111827;
@@ -168,7 +169,7 @@ body,
 @media print {
   @page {
     size: letter;
-    margin: 0.5in;
+    margin: 0.6in;
   }
   html,
   body,
