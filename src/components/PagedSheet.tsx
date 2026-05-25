@@ -5,6 +5,10 @@ const PAGE_W_IN = 8.5;
 const PAGE_H_IN = 11;
 const PAGE_PAD_IN = 0.5;
 const FOOTER_RESERVE_IN = 0.4;
+// Subtract a small safety buffer so content reliably fits inside the
+// printable area even when print rendering shifts line heights slightly
+// vs. screen rendering.
+const PRINT_SAFETY_IN = 0.4;
 
 type Props = {
   header: ReactNode;
@@ -23,7 +27,8 @@ export function PagedSheet({ header, children }: Props) {
       const headerEl = headerMeasureRef.current;
       if (!bodyEl || !headerEl) return;
       const headerH = headerEl.offsetHeight;
-      const usablePerPage = (PAGE_H_IN - PAGE_PAD_IN * 2 - FOOTER_RESERVE_IN) * DPI - headerH;
+      const usablePerPage =
+        (PAGE_H_IN - PAGE_PAD_IN * 2 - FOOTER_RESERVE_IN - PRINT_SAFETY_IN) * DPI - headerH;
       const items = Array.from(bodyEl.children) as HTMLElement[];
       const heights = items.map((el) => el.offsetHeight);
       const next: number[][] = [[]];
