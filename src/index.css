@@ -167,9 +167,13 @@ body,
 
 /* Print */
 @media print {
+  /* The .paged-page provides its own 0.6in inner padding so each app page
+     is exactly one physical sheet. @page margin must be 0, otherwise an
+     11in .paged-page would overflow the printable area and split across
+     two physical sheets. */
   @page {
     size: letter;
-    margin: 0.6in;
+    margin: 0;
   }
   html,
   body,
@@ -201,15 +205,17 @@ body,
   }
   .paged-page {
     display: block !important;
-    width: auto !important;
-    min-height: 0 !important;
-    padding: 0 !important;
+    width: 8.5in !important;
+    height: 11in !important;
+    min-height: 11in !important;
+    padding: 0.6in !important;
     margin: 0 !important;
     box-shadow: none !important;
     page-break-after: always;
     break-after: page;
     page-break-inside: avoid;
     break-inside: avoid;
+    overflow: hidden !important;
   }
   .paged-page:last-child {
     page-break-after: auto;
